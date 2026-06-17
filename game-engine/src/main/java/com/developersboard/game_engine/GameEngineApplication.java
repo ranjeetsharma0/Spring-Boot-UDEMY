@@ -13,15 +13,18 @@ public class GameEngineApplication {
         SpringApplication.run(GameEngineApplication.class, args);
     }
 
-    // 🔓 This tells Spring Security to bypass the login page for "/"
+    // 🔓 Updated security chain to bypass the login page for all three endpoints
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/").permitAll() // Let anyone access the home endpoint
-                .anyRequest().authenticated()     // Keep everything else locked down
+                // Added your new endpoints here so they are completely public
+            .requestMatchers("/", "/workout", "/fortune", "/actuator", "/actuator/**").permitAll()                .anyRequest().authenticated()     // Keep any other future endpoints locked down
             )
-            .formLogin(form -> form.permitAll()); // Keep default form configuration ready
+            // Disabled the login form redirect to prevent the Jenkins port-clash error
+            .formLogin(form -> form.disable()) 
+            .csrf(csrf -> csrf.disable());     // Disabled CSRF to ensure smooth local testing
+            
         return http.build();
     }
 }
