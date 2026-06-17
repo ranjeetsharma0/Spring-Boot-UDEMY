@@ -1,5 +1,6 @@
 package com.developersboard.game_engine.rest;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,5 +20,18 @@ public class FunRestController {
     @GetMapping("/fortune")
     public String getDailyFortune() {
         return "Today is your lucky day";
+    }
+
+// injecting values from application.properties file using @Value annotation or properties
+    @Value("${coach.name}")
+    private String coachName;
+
+    @Value("${team.name}")
+    private String teamName;
+// expose endpoints
+
+    @GetMapping("/teaminfo")
+    public String getTeamInfo() {
+        return "Coach: " + coachName + ", Team:" + teamName;
     }
 }

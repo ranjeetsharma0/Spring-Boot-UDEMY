@@ -14,7 +14,7 @@ public class GameEngineApplication {
     }
 
     // 🔓 Updated security chain to bypass the login page for all three endpoints
-    @Bean
+    /*@Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
@@ -26,5 +26,15 @@ public class GameEngineApplication {
             .csrf(csrf -> csrf.disable());     // Disabled CSRF to ensure smooth local testing
             
         return http.build();
+    }
+}*/
+@Bean
+public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    http
+        .authorizeHttpRequests(auth -> auth
+            .anyRequest().permitAll() // 👈 Temporarily open everything for smooth testing
+        );
+        
+    return http.build();
     }
 }
