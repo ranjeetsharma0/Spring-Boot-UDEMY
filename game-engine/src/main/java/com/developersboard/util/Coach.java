@@ -1,4 +1,4 @@
-package com.developersboard.game_engine;
+package com.developersboard.util;
 
 public interface Coach {
 
