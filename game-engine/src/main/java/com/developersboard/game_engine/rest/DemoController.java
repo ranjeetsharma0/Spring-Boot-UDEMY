@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.developersboard.game_engine.common.Coach;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 @RestController
 public class DemoController {
@@ -13,10 +14,18 @@ public class DemoController {
 
     //define a constructor for dependency injection
     @Autowired
+    //public DemoController(@Qualifier("baseballCoach") Coach theCoach) {
     public DemoController(Coach theCoach) {
         myCoach = theCoach;
     }
-    
+        
+
+  /*  @Autowired
+    public void setCoach(Coach theCoach) {
+        myCoach = theCoach;
+
+    }
+ */
     @GetMapping("/dailyworkout")
     public String getDailyWorkout(){
         return myCoach.getDailyWorkout();
