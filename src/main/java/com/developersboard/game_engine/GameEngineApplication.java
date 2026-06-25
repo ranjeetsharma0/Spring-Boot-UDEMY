@@ -1,10 +1,11 @@
 package com.developersboard.game_engine;
-
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+
 @SpringBootApplication  /*(scanBasePackages = {
     "com.developersboard.game_engine",
     "com.developersboard.util" // 👈 This forces Spring to look inside your sibling folder!
@@ -29,14 +30,23 @@ public class GameEngineApplication {
             
         return http.build();
     }
-}*/
-@Bean
-public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    http
-        .authorizeHttpRequests(auth -> auth
-            .anyRequest().permitAll() // 👈 Temporarily open everything for smooth testing
-        );
-        
-    return http.build();
+    */
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            .authorizeHttpRequests(auth -> auth
+                .anyRequest().permitAll() // 👈 Temporarily open everything for smooth testing
+            );
+            
+        return http.build();
     }
+
+    @Bean
+    public CommandLineRunner commandLineRunner() {
+        return runner -> {
+            System.out.println("Game Engine Application is running!");
+        };
+    }
+
 }
